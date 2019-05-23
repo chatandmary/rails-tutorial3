@@ -12,7 +12,13 @@ Rails.application.routes.draw do
   get '/login', to: 'session#new'
   post '/login', to: 'session#create'
   post '/logout', to: 'session#destroy'
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   
   resources :microposts,only: [:create, :destroy]
   resources :users
+  resources :relationships,only: [:create, :destroy]
 end
